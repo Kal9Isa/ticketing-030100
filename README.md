@@ -33,6 +33,12 @@
 
 	and save with admin rights.
 
-6. Navigate to root of the project and run `skaffold dev`
+6. Create a secret in your cluster using the following command:
 
-7. When you navigate to *`ticketing.dev`* you will see an error from Chrome that complains about *kubernetes self-signed certificate*, just click anywhere on the page and type `thisisunsafe`.
+```bash
+kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+```
+
+7. Navigate to root of the project and run `skaffold dev`
+
+8. When you navigate to *`ticketing.dev`* you will see an error from Chrome that complains about *kubernetes self-signed certificate*, just click anywhere on the page and type `thisisunsafe`.
