@@ -40,7 +40,8 @@ router.post(
         id: user.id,
         email: user.email,
       },
-      "asdf"
+      // Tells TS we have handled it, don't worry
+      process.env.JWT_KEY!
     );
 
     // Sotre on session object
