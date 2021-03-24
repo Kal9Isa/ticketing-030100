@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -11,8 +12,17 @@ import { errorHandler } from "./middlewares/error-handler";
 import { NotFoundError } from "./errors/not-found-error";
 
 const app = express();
+// Allow Ingress NGINX
+app.set("trust proxy", true);
 app.use(json());
-
+app.use(
+  cookieSession({
+    // No encryption
+    signed: false,
+    // over HTTPS
+    secure: true,
+  })
+);
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signupRouter);
@@ -36,6 +46,8 @@ const start = async () => {
   }
 
   app.listen(3000, () => {
-    console.log("Listening now on 3000!");
+    console.log(">>> Listening now on 3000!");
   });
 };
+
+start();
