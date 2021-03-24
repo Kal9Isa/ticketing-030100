@@ -31,7 +31,7 @@ it("returns a 400 with an invalid password", async () => {
     .expect(400);
 });
 
-it("returns a 400 with missing email and password", async () => {
+it("returns a 400 with missing email or password", async () => {
   await request(app)
     .post("/api/users/signup")
     .send({ email: "test@test.com" })
@@ -41,4 +41,25 @@ it("returns a 400 with missing email and password", async () => {
     .post("/api/users/signup")
     .send({ password: "password" })
     .expect(400);
+});
+
+it("disallows dulicate emails", async () => {
+  await request(app)
+    .post("/api/users/signup")
+    .send({ email: "test@test.com", password: "password" })
+    .expect(201);
+
+  await request(app)
+    .post("/api/users/signup")
+    .send({ email: "test@test.com", password: "password" })
+    .expect(400);
+});
+
+it("sets a cookie after successful signup", async () => {
+  const response = await request(app)
+    .post("/api/users/signup")
+    .send({ email: "test@test.com", password: "password" })
+    .expect(201);
+
+  expect(response.get("Set-Cookie")).toBeDefined();
 });

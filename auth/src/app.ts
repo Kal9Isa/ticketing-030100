@@ -19,7 +19,7 @@ app.use(
     // No encryption
     signed: false,
     // over HTTPS
-    secure: true,
+    secure: process.env.NODE_ENV !== "test",
   })
 );
 app.use(currentUserRouter);
