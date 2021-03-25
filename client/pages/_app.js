@@ -1,4 +1,3 @@
-// Global css goes here
 import "bootstrap/dist/css/bootstrap.css";
 import buildClient from "../api/build-client";
 import Header from "../components/header";
@@ -6,7 +5,7 @@ import Header from "../components/header";
 const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
-      <Header {...currentUser} />
+      <Header currentUser={currentUser} />
       <Component {...pageProps} />
     </div>
   );
@@ -16,6 +15,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
 
 // Because we added a getInitialProps in _app, we should invoke the
 // getInitialProps of index file manually
+
 AppComponent.getInitialProps = async (appContext) => {
   const client = buildClient(appContext.ctx);
   const { data } = await client.get("/api/users/currentuser");
@@ -23,13 +23,16 @@ AppComponent.getInitialProps = async (appContext) => {
   // This piece of code invokes getInitialProps for each page we navigate to
   // this check prevents crashing if we navigate to a page with undefined getInitialProps
   // like signin, signup , ...
-  let pageProps = {};
 
+  let pageProps = {};
   if (appContext.Component.getInitialProps) {
     pageProps = await appContext.Component.getInitialProps(appContext.ctx);
   }
 
-  return { pageProps, ...data };
+  return {
+    pageProps,
+    ...data,
+  };
 };
 
-export default { AppComponent };
+export default AppComponent;
