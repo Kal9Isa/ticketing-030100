@@ -1,4 +1,4 @@
-import axios from "axios";
+import buildClient from "../api/buildClient";
 // hooks only work inside React components
 
 const LandingPage = ({ currentuser }) => {
@@ -6,22 +6,10 @@ const LandingPage = ({ currentuser }) => {
 };
 
 // Runs on the server before rendering
-LandingPage.getInitialProps = async ({ req }) => {
-  if (typeof window === "undefined") {
-    // We on server
-    // URL can be shortend by using external service name in k8s
-    const { data } = await axios.get(
-      "http://ingress-nginx.ingress-nginx.svc.cluster.local/api/users/currentuser",
-      {
-        headers: req.headers,
-      }
-    );
-    return data;
-  } else {
-    // We on browser
-    const { data } = await axios.get("/api/users/currentuser");
-    return data;
-  }
+LandingPage.getInitialProps = async (context) => {
+  const client = buildClient(context);
+  const { data } = await client.get("/api/users/currentuser");
+  return data;
 };
 
 export default LandingPage;
