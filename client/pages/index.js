@@ -2,7 +2,11 @@ import buildClient from "../api/buildClient";
 // hooks only work inside React components
 
 const LandingPage = ({ currentuser }) => {
-  return <h1>This is Landing Page!</h1>;
+  return currentuser ? (
+    <h1>You are signed in</h1>
+  ) : (
+    <h1>You are not signed in</h1>
+  );
 };
 
 // Runs on the server before rendering
