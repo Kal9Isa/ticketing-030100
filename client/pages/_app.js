@@ -2,8 +2,14 @@
 import "bootstrap/dist/css/bootstrap.css";
 import buildClient from "../api/build-client";
 
-const AppComponent = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />;
+const AppComponent = ({ Component, pageProps, currentUser }) => {
+  return (
+    <div>
+      <h1>Header</h1>
+      <h2>{currentUser.email}</h2>
+      <Component {...pageProps} />
+    </div>
+  );
 };
 
 // context = { AppTree, Component, router, ctx: { req, res } }
@@ -23,7 +29,7 @@ AppComponent.getInitialProps = async (appContext) => {
     pageProps = await appContext.Component.getInitialProps(appContext.ctx);
   }
 
-  return data;
+  return { pageProps, ...data };
 };
 
 export default { AppComponent };
