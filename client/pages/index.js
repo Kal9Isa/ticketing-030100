@@ -10,6 +10,7 @@ const LandingPage = ({ currentUser }) => {
 };
 
 // Only time it runs on browser is when redirection/navigation between pages happens
+// context = { req, res }
 LandingPage.getInitialProps = async (context) => {
   const client = buildClient(context);
   const { data } = await client.get("/api/users/currentuser");
