@@ -58,4 +58,12 @@ it("Returns an error is an invalid password is provided", async () => {
     .expect(400);
 });
 
-it("Creates a ticket with valid parameters", async () => {});
+it("Creates a ticket with valid parameters", async () => {
+  // Add in a check for ticket saved
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({ title: "test", price: 20 })
+    .expect(201);
+});
