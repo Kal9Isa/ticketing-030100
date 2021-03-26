@@ -12,6 +12,7 @@ import {
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
 import { indexTicketRouter } from "./routes/index";
+import { updateTicketRouter } from "./routes/update";
 
 const app = express();
 // Allow Ingress NGINX
@@ -31,6 +32,7 @@ app.use(currentUser);
 app.use(showTicketRouter);
 app.use(indexTicketRouter);
 app.use(createTicketRouter);
+app.use(updateTicketRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
