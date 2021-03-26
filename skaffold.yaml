@@ -24,7 +24,7 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
-    - image: kalisa96/tickets
+    - image: kalisa96/ticketing-tickets
       context: tickets
       docker:
         dockerfile: Dockerfile
