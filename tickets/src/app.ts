@@ -4,6 +4,8 @@ import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import { errorHandler, NotFoundError } from "@kal9isa-tickets/common";
 
+import { createTicketRouter } from "./routes/new";
+
 const app = express();
 // Allow Ingress NGINX
 app.set("trust proxy", true);
@@ -16,6 +18,8 @@ app.use(
     secure: process.env.NODE_ENV !== "test",
   })
 );
+
+app.use(createTicketRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
