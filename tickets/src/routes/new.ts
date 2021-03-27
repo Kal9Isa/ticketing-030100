@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import { requireAuth, validateRequest } from "@hiroit/common";
 
 import { Ticket } from "../models/ticket";
+import { natsWrapper } from "../nats-wrapper";
 import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.post(
     const { title, price } = req.body;
     const ticket = Ticket.build({ title, price, userId: req.currentUser!.id });
     await ticket.save();
-    new TicketCreatedPublisher(client).publish({
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
