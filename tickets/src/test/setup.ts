@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 
 import { app } from "../app";
 
+jest.mock("../nats-wrapper");
+
 declare global {
   namespace NodeJS {
     interface Global {
