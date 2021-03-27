@@ -2,7 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import { errorHandler, NotFoundError } from "@kal9isa-tickets/common";
+import { errorHandler, NotFoundError } from "@hiroit/common";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";

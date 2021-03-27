@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-import { BadRequestError, validateRequest } from "@kal9isa-tickets/common";
+import { BadRequestError, validateRequest } from "@hiroit/common";
 
 import { User } from "../models/user";
 

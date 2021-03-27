@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 
 import { Ticket } from "../models/ticket";
-import { NotFoundError } from "@kal9isa-tickets/common";
+import { NotFoundError } from "@hiroit/common";
 
 const router = express.Router();
 

@@ -5,7 +5,7 @@ import {
   NotFoundError,
   requireAuth,
   NotAuthorizedError,
-} from "@kal9isa-tickets/common";
+} from "@hiroit/common";
 
 import { Ticket } from "../models/ticket";
 

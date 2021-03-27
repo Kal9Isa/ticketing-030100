@@ -7,7 +7,7 @@ import {
   NotFoundError,
   requireAuth,
   currentUser,
-} from "@kal9isa-tickets/common";
+} from "@hiroit/common";
 
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";

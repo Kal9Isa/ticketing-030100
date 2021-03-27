@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { requireAuth, validateRequest } from "@kal9isa-tickets/common";
+import { requireAuth, validateRequest } from "@hiroit/common";
 
 import { Ticket } from "../models/ticket";
+import { TicketCreatedPublisher } from "../events/publishers/ticket-created-publisher";
 
 const router = express.Router();
 
@@ -22,6 +23,12 @@ router.post(
     const { title, price } = req.body;
     const ticket = Ticket.build({ title, price, userId: req.currentUser!.id });
     await ticket.save();
+    new TicketCreatedPublisher(client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
     res.status(201).send(ticket);
   }
 );
