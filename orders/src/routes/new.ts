@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { requireAuth, validateRequest } from "@hiroit/common";
@@ -12,12 +13,14 @@ router.post(
   "/api/orders",
   requireAuth,
   [
-    body("title").not().isEmpty().withMessage("Title is required"),
-    body("price")
+    body("ticketId")
       .not()
       .isEmpty()
-      .isFloat({ gt: 0 })
-      .withMessage("Price must be valid"),
+      // Bad idea for decoupling of services
+      .custom((input: string) => {
+        mongoose.Types.ObjectId.isValid(input);
+      })
+      .withMessage("ticketId is required"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -31,6 +34,7 @@ router.post(
     //     userId: ticket.userId,
     //   });
     //   res.status(201).send(ticket);
+    res.send({});
   }
 );
 
