@@ -2,12 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import {
-  errorHandler,
-  NotFoundError,
-  requireAuth,
-  currentUser,
-} from "@hiroit/common";
+import { errorHandler, NotFoundError, currentUser } from "@hiroit/common";
 
 import { createTicketRouter } from "./routes/new";
 import { showTicketRouter } from "./routes/show";
