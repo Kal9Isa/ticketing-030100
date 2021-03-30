@@ -2,17 +2,12 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from "cookie-session";
-import {
-  errorHandler,
-  NotFoundError,
-  requireAuth,
-  currentUser,
-} from "@hiroit/common";
+import { errorHandler, NotFoundError, currentUser } from "@hiroit/common";
 
-import { createTicketRouter } from "./routes/new";
-import { showTicketRouter } from "./routes/show";
-import { indexTicketRouter } from "./routes/index";
-import { updateTicketRouter } from "./routes/update";
+import { createOrderRouter } from "./routes/new";
+import { showOrderRouter } from "./routes/show";
+import { indexOrderRouter } from "./routes/index";
+import { deleteOrderRouter } from "./routes/delete";
 
 const app = express();
 // Allow Ingress NGINX
@@ -29,10 +24,10 @@ app.use(
 
 app.use(currentUser);
 
-app.use(showTicketRouter);
-app.use(indexTicketRouter);
-app.use(createTicketRouter);
-app.use(updateTicketRouter);
+app.use(showOrderRouter);
+app.use(indexOrderRouter);
+app.use(createOrderRouter);
+app.use(deleteOrderRouter);
 
 app.all("*", async (req, res) => {
   throw new NotFoundError();
